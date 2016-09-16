@@ -22,7 +22,7 @@ Now install Python3 dependent packages:
 * command line history [sqlite] (libsqlite3)
 * terminal cursor [ncurse] (libncurses)
 
-[Tcl/Tk]: https://tcl.tk/software/tcltk/download.html
+[Tcl/Tk](https://tcl.tk/software/tcltk/download.html)
 [XscrnSaver]: http://www.linuxfromscratch.org/blfs/view/svn/x/x7lib.html
 [bzip2]: http://www.bzip.org/downloads.html
 [xz]: http://tukaani.org/xz/
