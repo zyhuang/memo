@@ -17,12 +17,12 @@ export LD_LIBRARY_PATH="<PREFIX_DIR>/lib":$LD_LIBRARY_PATH
 
 Now install Python3 dependent packages:
 
-* X11 related libraries [Tcl/Tk] (libtk, libtcl), [XscrnSaver] (libXss)
-* compression libraries [bzip2] (libbz2), [xz] (liblzma)
-* command line history [sqlite] (libsqlite3)
-* terminal cursor [ncurse] (libncurses)
+* X11 related libraries [Tcl/Tk] for libtk, libtcl, [XscrnSaver] for libXss
+* compression libraries [bzip2] for libbz2, [xz] for liblzma
+* command line history [sqlite] for libsqlite3
+* terminal cursor [ncurse] for libncurses
 
-[Tcl/Tk](https://tcl.tk/software/tcltk/download.html)
+[Tcl/Tk]: https://tcl.tk/software/tcltk/download.html
 [XscrnSaver]: http://www.linuxfromscratch.org/blfs/view/svn/x/x7lib.html
 [bzip2]: http://www.bzip.org/downloads.html
 [xz]: http://tukaani.org/xz/
@@ -33,7 +33,7 @@ Now install Python3 dependent packages:
 
 Compilation of these packges is fairly straightforward, following `configure --prefix=PREFIX_DIR (--enable-shared) && make && make install`. Tcl should be compiled before Tk. 
 
-Now compile [Python3] (currently Python-3.5.2). It is a good practice that the package is built in a separate directory, `BUILD_DIR`, hence the code in the source directory is not messed up, and different builds can be made in parallel. Run the following to generate the Makefile.
+Now compile [Python3]. It is a good practice that the package is built in a separate directory, `BUILD_DIR`, hence the code in the source directory is not messed up, and different builds can be made in parallel. Run the following to generate the Makefile.
 [Python3]: https://www.python.org/downloads/
 
 ```bash
@@ -66,6 +66,6 @@ Following modules built successfully but were removed because they could not be 
 _bz2      
 ```
 
-As everything is ready, now run `make`, and if successful, `make install`. If any missing header files or failure of import happens, go back and install the libraries (with shared library `.so` file) and redo the `make` until success. In bocca al lupo!
+As everything is ready, now run `make`, and if successful, `make install`. If any missing header files or failure of import happens, go back and install the libraries (with shared library `.so` file) and redo the `make` until success. *In bocca al lupo!*
 
 
