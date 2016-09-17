@@ -1,0 +1,111 @@
+;; load lisp el scripts
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+;;------------------------------------------------------------------------------
+;; load themes
+(require 'package) ;; You might already have this line
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/"))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize) ;; You might already have this line
+
+;; (require 'cyberpunk-theme)
+;; (require 'grandshell-theme)
+(require 'molokai-theme)
+;; (require 'monokai-theme)
+;; (require 'zenburn-theme)
+;; (require 'tangotango-theme)
+;; (require 'darkokai-theme)
+
+;;------------------------------------------------------------------------------
+
+;; set delete selection mode
+(delete-selection-mode 1)
+
+;; wants no backup files
+(setq make-backup-files nil)
+
+;;------------------------------------------------------------------------------
+;; PEP8 related
+;;
+;; http://docs.astropy.org/en/stable/development/codeguide_emacs.html
+;; https://www.emacswiki.org/emacs/PythonProgrammingInEmacs#toc22
+
+
+;; ========== GLOBAL SETTINGS ==========
+
+;; Don't use TABS for indentations.
+(setq-default indent-tabs-mode nil)
+
+;; Set the number to the number of columns to use.
+(setq-default fill-column 79)
+
+;; Add Autofill mode to mode hooks.
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+;; Show line number in the mode line.
+(line-number-mode 1)
+
+;; Show column number in the mode line.
+(column-number-mode 1)
+
+;; Enable syntax highlighting. 
+(global-font-lock-mode 1)
+
+
+;; ========== PYTHON SPECIFIC SETTING ==========
+;; Indentation is automatically added. When a tab is pressed it is
+;; replaced with 4 spaces. When backspace is pressed on an empty line,
+;; the cursor will jump to the previous indentation level.
+
+(load-library "python")
+
+
+(autoload 'python-mode "python-mode" "Python Mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+
+(setq interpreter-mode-alist
+      (cons '("python" . python-mode)
+	    interpreter-mode-alist)
+      python-mode-hook
+      '(lambda () (progn
+		    (set-variable 'py-indent-offset 4)
+		    (set-variable 'indent-tabs-mode nil))))
+
+;; The “fill-column” column is highlighted in red. For this to work, download
+;; column-marker.el and place it in the Emacs configuration directory.
+
+;; Highlight character at "fill-column" position.
+(require 'column-marker)
+(set-face-background 'column-marker-1 "red")
+(add-hook 'python-mode-hook
+          (lambda () (interactive)
+            (column-marker-1 fill-column)))
+
+
+;; Remove trailing whitespace manually by typing C-t C-w.
+(add-hook 'python-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-t C-w")
+                           'delete-trailing-whitespace)))
+
+;; Automatically remove trailing whitespace when file is saved.
+(add-hook 'python-mode-hook
+          (lambda()
+            (add-hook 'local-write-file-hooks
+                      '(lambda()
+                         (save-excursion
+                           (delete-trailing-whitespace))))))
+
+;; Use M-SPC (use ALT key) to make sure that words are separated by
+;; just one space. Use C-x C-o to collapse a set of empty lines
+;; around the cursor to one empty line. Useful for deleting all but
+;; one blank line at end of file. To do this go to end of file (M->)
+;; and type C-x C-o.
+
+
+;; highlight parenthesis
+(show-paren-mode 1)
